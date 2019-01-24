@@ -45,9 +45,11 @@ interface Graphics
 
     function drawCubicBezierPath(x :Array<Float>, y :Array<Float>, strength:Float = 1.0):Void;
 
-    function drawString(text :String, font :Font, fontSize :Int, x :Float, y :Float) : Void;
+    function drawString(text :String, font :Font, fontSize :Int, fontColor :Int, x :Float, y :Float) : Void;
 
     function drawImage(texture: Texture, x: Float, y: Float) : Void;
+    
+    function drawScaledImage(texture: Texture, x: Float, y: Float, dw: Float, dh: Float) : Void;
 
     function drawSubImage(texture: Texture, x: Float, y: Float, sx: Float, sy: Float, sw: Float, sh: Float) : Void;
 

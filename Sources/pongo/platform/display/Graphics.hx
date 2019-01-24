@@ -110,8 +110,9 @@ class Graphics implements pongo.display.Graphics
         _graphics.drawPolygon(x, y, vertices, strength);
     }
 
-    public function drawString(text :String, font :pongo.display.Font, fontSize :Int, x :Float, y :Float) : Void
+    public function drawString(text :String, font :pongo.display.Font, fontSize :Int, fontColor :Int, x :Float, y :Float) : Void
     {
+        this.save();
         prepare(TEXT);
 
         var nativeFont = cast(font, Font).nativeFont;
@@ -122,14 +123,27 @@ class Graphics implements pongo.display.Graphics
         if(_graphics.fontSize != fontSize) {
             _graphics.fontSize = fontSize;
         }
-
+        
+        _graphics.color = fontColor;    
+        
+        _graphics.pipeline.blendSource = BlendingFactor.SourceAlpha;
+		_graphics.pipeline.blendDestination = BlendingFactor.InverseSourceAlpha;
+		_graphics.pipeline.alphaBlendSource = BlendingFactor.SourceAlpha;
+		_graphics.pipeline.alphaBlendDestination = BlendingFactor.InverseSourceAlpha;
         _graphics.drawString(text, x, y);
+        this.restore();
     }
 
     public function drawImage(texture: pongo.display.Texture, x: Float, y: Float) : Void
     {
         prepare(IMAGE);
         _graphics.drawImage(cast(texture, Texture).nativeTexture, x, y);
+    }
+
+    public function drawScaledImage(texture: pongo.display.Texture, x: Float, y: Float, dw: Float, dh: Float) : Void
+    {
+        prepare(IMAGE);
+        _graphics.drawScaledImage(cast(texture, Texture).nativeTexture, x, y, dw, dh);
     }
 
     public function drawSubImage(texture: pongo.display.Texture, x: Float, y: Float, sx: Float, sy: Float, sw: Float, sh: Float) : Void

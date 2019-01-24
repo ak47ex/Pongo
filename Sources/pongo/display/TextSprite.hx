@@ -40,7 +40,7 @@ class TextSprite implements Sprite
 
     public function draw(dt :Float, transform :Transform, graphics :Graphics) : Void
     {
-        graphics.drawString(text, font, color, fontSize, 0, 0);
+        graphics.drawString(text, font, fontSize, color, 0, 0);
     }
 
     public function getNaturalWidth() : Float
